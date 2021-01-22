@@ -1,11 +1,29 @@
-query GetTransactions {
-    transactions {
-        id
-        user_id
-        description
-        merchant_id
-        debit
-        credit
-        amount
+query GetDataForTable {
+  transactions {
+    id
+    user {
+      id
+      firstName
+      lastName
     }
+    merchant {
+      id
+      name
+      description
+    }
+    description
+    debit
+    credit
+    amount
+    insertedAt
+  }
+  merchants {
+    id
+    name
+  }
+  users {
+    id
+    firstName
+    lastName
+  }
 }

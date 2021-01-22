@@ -47,7 +47,7 @@ const graphQlConfig = {
 
 const rules = [
   babelConfig,
-  eslintConfig,
+  // eslintConfig,
   imageUrlConfig,
   {
     test: /\.mjs$/,
