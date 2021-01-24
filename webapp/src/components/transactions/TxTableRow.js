@@ -16,21 +16,13 @@ import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown'
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp'
 import { TxSubTable } from './TxSubTable'
 import { TxRowDropdown } from './TxRowDropdown'
+import { currency } from '../../utils/currency'
 
 const makeDataTestId = (transactionId, fieldName) => `transaction-${transactionId}-${fieldName}`
 
-export function TxTableRow({ txId, user, insertedAt, merchant, amount, credit, debit, description, setData }) {
-  //merchantDetails, purchaseDetails, isCredit, isDebit
+export function TxTableRow(props) {
+  const { user, insertedAt, merchant, amount, credit, debit, description } = props.transaction
   const [open, setOpen] = React.useState(false)
-
-  const editInfo = {
-    txId,
-    user: user.id,
-    merchant: merchant.id,
-    amount,
-    paymentType: credit ? 'Credit' : debit ? 'Debit' : 'Other',
-    description
-  }
 
   return (
     <React.Fragment>
@@ -43,9 +35,9 @@ export function TxTableRow({ txId, user, insertedAt, merchant, amount, credit, d
         <TableCell>{`${user.firstName} ${user.lastName}`}</TableCell>
         <TableCell align="right">{insertedAt}</TableCell>
         <TableCell align="right">{merchant.name}</TableCell>
-        <TableCell align="right">{amount}</TableCell>
+        <TableCell align="right">{currency.convertToString(amount)}</TableCell>
         <TableCell css={css({ maxWidth: 50 })}>
-          <TxRowDropdown txId={txId} setData={setData} editInfo={editInfo} />
+          <TxRowDropdown transaction={props.transaction} />
         </TableCell>
       </TableRow>
       <TableRow>

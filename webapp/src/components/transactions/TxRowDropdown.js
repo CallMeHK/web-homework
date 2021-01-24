@@ -11,17 +11,16 @@ import Menu from '@material-ui/core/Menu'
 import MoreVertIcon from '@material-ui/icons/MoreVert'
 import { useMutation } from '@apollo/client'
 import DELETE_TRANSACTION from '../../gql/delete_transaction.gql'
-import { useModalContext } from '../../context/modal.context'
+import { useFormContext } from '../../context/form.context'
 
-export const TxRowDropdown = ({ txId, setData, editInfo }) => {
+export const TxRowDropdown = ({ transaction }) => {
   const [open, setOpen] = React.useState(false)
   const anchorRef = React.useRef(null)
-  const modal = useModalContext()
+  const form = useFormContext()
   const [deleteTransaction, { data }] = useMutation(DELETE_TRANSACTION)
 
   const handleEdit = () => {
-    modal.setInitialEditState(editInfo)
-    modal.setOpen(true)
+    form.openEditModal(transaction)
     setOpen(false)
   }
 
@@ -45,9 +44,9 @@ export const TxRowDropdown = ({ txId, setData, editInfo }) => {
   }
 
   const removeTransaction = async () => {
-    await deleteTransaction({ variables: { id: txId } })
-    setData(old => {
-      const transactions = old.transactions.filter(row => row.id !== txId)
+    await deleteTransaction({ variables: { id: transaction.id } })
+    form.setData(old => {
+      const transactions = old.transactions.filter(row => row.id !== transaction.id)
       return {
         ...old,
         transactions
@@ -55,7 +54,6 @@ export const TxRowDropdown = ({ txId, setData, editInfo }) => {
     })
   }
 
-  // return focus to the button when we transitioned from !open -> open
   const prevOpen = React.useRef(open)
   React.useEffect(() => {
     if (prevOpen.current === true && open === false) {

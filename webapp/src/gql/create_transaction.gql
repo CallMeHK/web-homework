@@ -16,10 +16,12 @@ mutation CreateTransaction(
   ) {
     id
     user {
+      id
       firstName
       lastName
     }
     merchant {
+      id
       name
       description
     }

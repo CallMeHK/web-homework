@@ -9,10 +9,12 @@ mutation UpdateTransaction(
   updateTransaction(id: $id, amount: $amount, credit: $credit, debit: $debit, description: $description, merchantId: $merchantId, userId: $userId ){
     id
     user {
+      id
       firstName
       lastName
     }
     merchant {
+      id
       name
       description
     }

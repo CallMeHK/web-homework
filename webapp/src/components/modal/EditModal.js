@@ -6,27 +6,36 @@ import Typography from '@material-ui/core/Typography'
 import { makeStyles } from '@material-ui/core/styles'
 import Modal from '@material-ui/core/Modal'
 import { TransactionForm } from '../entry-form/TransactionForm'
-import { useModalContext } from '../../context/modal.context'
+import { useFormContext } from '../../context/form.context'
+import CancelPresentationIcon from '@material-ui/icons/CancelPresentation'
+import IconButton from '@material-ui/core/IconButton'
 
-export const EditModal = ({ merchants, users, setData }) => {
-  const modal = useModalContext()
+export const EditModal = ({ merchants, users }) => {
+  const form = useFormContext()
 
   const handleClose = () => {
-    modal.setOpen(false)
+    form.setIsModalOpen(false)
   }
 
   const handleEdit = editedTransaction => {
-    setData(old => ({
-      ...old,
-      transactions: [...old.transactions.filter(row => row.id !== editedTransaction.id), editedTransaction]
-    }))
-    modal.setOpen(false)
+    debugger
+    form.setData(old => {
+      console.log(old)
+      return {
+        ...old,
+        transactions: old.transactions.map(row => {
+          if (row.id === editedTransaction.id) return editedTransaction
+          return row
+        })
+      }
+    })
+    form.setIsModalOpen(false)
   }
 
   return (
     <div>
       <Modal
-        open={modal.open}
+        open={form.isModalOpen}
         onClose={handleClose}
         style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
         aria-labelledby="simple-modal-title"
@@ -35,16 +44,21 @@ export const EditModal = ({ merchants, users, setData }) => {
         <div css={modalContainerStyle}>
           <Card>
             <CardContent>
-              <Typography color="textSecondary" gutterBottom>
-                Edit Transaction
-              </Typography>
+              <div css={modalTopRowStyle}>
+                <Typography color="textSecondary">Edit Transaction</Typography>
+                <div css={closeButtonContainerStyle}>
+                  <IconButton color="inherit" onClick={handleClose} edge="start">
+                    <CancelPresentationIcon />
+                  </IconButton>
+                </div>
+              </div>
               <Typography variant="body2" component="p">
                 Please edit the transaction information below to the best of your ability.
               </Typography>
               <TransactionForm
                 data={{ merchants, users }}
                 formCallback={handleEdit}
-                editValues={modal.initialEditState}
+                editValues={form.initialEditState}
                 edit
               />
             </CardContent>
@@ -58,4 +72,12 @@ export const EditModal = ({ merchants, users, setData }) => {
 const modalContainerStyle = css`
   max-width: 720px;
   position: absolute;
+`
+const modalTopRowStyle = css`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`
+const closeButtonContainerStyle = css`
+  margin-bottom: 8px;
 `

@@ -10,13 +10,15 @@ import FormHelperText from '@material-ui/core/FormHelperText'
 import FormControl from '@material-ui/core/FormControl'
 import Select from '@material-ui/core/Select'
 import CREATE_TRANSACTION from '../../gql/create_transaction.gql'
+import UPDATE_TRANSACTION from '../../gql/update_transaction.gql'
 import { useMutation } from '@apollo/client'
+import { currency } from '../../utils/currency'
 
-export const TransactionForm = ({ data, transactionAddedCallback, editValues, edit }) => {
+export const TransactionForm = ({ data, formCallback, editValues, edit }) => {
   const { control, watch, formState, errors, handleSubmit, reset, setValue } = useForm({
     mode: 'onTouched'
   })
-  const [createTransaction, { _data }] = useMutation(CREATE_TRANSACTION)
+  const [createOrEditTransaction, { _data }] = useMutation(edit ? UPDATE_TRANSACTION : CREATE_TRANSACTION)
 
   const { merchants, users } = data
 
@@ -33,10 +35,11 @@ export const TransactionForm = ({ data, transactionAddedCallback, editValues, ed
   // update this transactrion thing to work with edit when edit true
   const onSubmit = async submittedForm => {
     const { user, merchant, description, amount, paymentType } = submittedForm
-    const splitAmount = amount.split('.')
-    const integerAmount = parseInt(splitAmount[0] + splitAmount[1])
-    const response = await createTransaction({
+    const integerAmount = currency.convertToInteger(amount)
+
+    const response = await createOrEditTransaction({
       variables: {
+        ...(edit && { id: editValues.txId }),
         userId: user,
         merchantId: merchant,
         description,
@@ -45,17 +48,18 @@ export const TransactionForm = ({ data, transactionAddedCallback, editValues, ed
         debit: paymentType === 'Debit'
       }
     })
-    transactionAddedCallback(response.data.createTransaction)
+
+    formCallback(edit ? response.data.updateTransaction : response.data.createTransaction)
     clearAllFields()
     reset()
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form>
       <Controller
         name="user"
         control={control}
-        defaultValue={editValues && editValues.user}
+        defaultValue={edit ? editValues.user : ""}
         rules={{ required: true }}
         render={({ onChange, onBlur, value }) => (
           <FormControl css={largeTextFieldStyle}>
@@ -77,7 +81,7 @@ export const TransactionForm = ({ data, transactionAddedCallback, editValues, ed
       <Controller
         name="merchant"
         control={control}
-        defaultValue={editValues && editValues.merchant}
+        defaultValue={edit ? editValues.merchant : ""}
         rules={{ required: true }}
         render={({ onChange, onBlur, value }) => (
           <FormControl css={largeTextFieldStyle}>
@@ -99,7 +103,7 @@ export const TransactionForm = ({ data, transactionAddedCallback, editValues, ed
       <Controller
         name="paymentType"
         control={control}
-        defaultValue={editValues && editValues.paymentType}
+        defaultValue={edit ? editValues.paymentType : ""}
         rules={{ required: true }}
         render={({ onChange, onBlur, value }) => (
           <FormControl css={largeTextFieldStyle}>
@@ -121,7 +125,7 @@ export const TransactionForm = ({ data, transactionAddedCallback, editValues, ed
       <Controller
         name="description"
         control={control}
-        defaultValue={editValues && editValues.description}
+        defaultValue={edit ? editValues.description : ""}
         rules={{ required: true }}
         render={({ onChange, onBlur, value }) => (
           <>
@@ -139,7 +143,7 @@ export const TransactionForm = ({ data, transactionAddedCallback, editValues, ed
       <Controller
         name="amount"
         control={control}
-        defaultValue={editValues && editValues.amount}
+        defaultValue={edit ? editValues.amount : ""}
         rules={{ required: true, validate: validateAmount }}
         render={({ onChange, onBlur, value }) => (
           <div>
@@ -150,16 +154,9 @@ export const TransactionForm = ({ data, transactionAddedCallback, editValues, ed
       />
       <Divider />
       <div css={formSpacerStyle} />
-      {JSON.stringify(watch())}
-      {JSON.stringify(formState)}
-      <Divider />
-      <div css={formSpacerStyle} />
-
-      <Divider />
-      <div css={formSpacerStyle} />
 
       <Button variant="contained" onClick={handleSubmit(onSubmit)}>
-        Submit
+        {edit ? 'Update' : 'Submit'}
       </Button>
     </form>
   )

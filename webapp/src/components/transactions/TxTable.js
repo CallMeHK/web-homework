@@ -13,7 +13,7 @@ import TableRow from '@material-ui/core/TableRow'
 import Paper from '@material-ui/core/Paper'
 import { TxTableRow } from './TxTableRow'
 import { EditModal } from '../modal/EditModal'
-import { ModalContextProvider } from '../../context/modal.context'
+import { FormContextProvider } from '../../context/form.context'
 
 const styles = css`
   .header {
@@ -27,7 +27,7 @@ export function TxTable({ data, setData }) {
 
   return (
     <>
-      <ModalContextProvider>
+      <FormContextProvider setData={setData}>
         <EditModal merchants={data.merchants} users={data.users} setData={setData} />
         <TableContainer component={Paper}>
           <Table aria-label="collapsible table">
@@ -43,23 +43,12 @@ export function TxTable({ data, setData }) {
             </TableHead>
             <TableBody>
               {data.transactions.map(row => (
-                <TxTableRow
-                  txId={row.id}
-                  key={row.id}
-                  user={row.user}
-                  insertedAt={row.insertedAt}
-                  merchant={row.merchant}
-                  amount={(row.amount / 10).toFixed(2).toString()}
-                  credit={row.credit}
-                  debit={row.debit}
-                  description={row.description}
-                  setData={setData}
-                />
+                <TxTableRow key={row.id} transaction={row} />
               ))}
             </TableBody>
           </Table>
         </TableContainer>
-      </ModalContextProvider>
+      </FormContextProvider>
     </>
   )
 }

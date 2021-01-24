@@ -12,12 +12,20 @@ import GET_MERCHANTS_AND_USERS from '../gql/get_merchants_and_users.gql'
 import { css } from '@emotion/core'
 
 export const EntryPage = () => {
-  const { loading, error, data = {} } = useQuery(GET_MERCHANTS_AND_USERS)
-  const [newTransactions, setNewTransactions] = React.useState([])
+  const [data, setData] = React.useState({})
+  const { loading, error, _data = {} } = useQuery(GET_MERCHANTS_AND_USERS, {
+    onCompleted: fetched =>
+      setData({
+        ...fetched,
+        transactions: []
+      })
+  })
 
-  const addTransactionToNew = transaction => setNewTransactions(old => [transaction, ...old])
+  if (error) {
+    return <Fragment>¯\_(ツ)_/¯</Fragment>
+  }
 
-  if (loading) {
+  if (loading || !data.transactions) {
     return (
       <div css={loadingStyle}>
         <CircularProgress color="secondary" />
@@ -25,9 +33,6 @@ export const EntryPage = () => {
     )
   }
 
-  if (error) {
-    return <Fragment>¯\_(ツ)_/¯</Fragment>
-  }
   return (
     <div css={centerPageStyle}>
       <div css={cardContainerStyle}>
@@ -39,7 +44,7 @@ export const EntryPage = () => {
             <Typography variant="body2" component="p">
               Please enter the transaction information below to the best of your ability.
             </Typography>
-            <TransactionForm data={data} transactionAddedCallback={addTransactionToNew} />
+            <TransactionForm data={data} formCallback={setData} />
           </CardContent>
         </Card>
         <div css={cardSpacerStyle} />
@@ -48,7 +53,7 @@ export const EntryPage = () => {
             <Typography color="textSecondary" gutterBottom>
               Transactions added
             </Typography>
-            <TxTable data={newTransactions} setData={setNewTransactions}/>
+            <TxTable data={data} setData={setData} />
           </CardContent>
         </Card>
       </div>

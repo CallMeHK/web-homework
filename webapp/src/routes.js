@@ -10,7 +10,7 @@ function AppRouter() {
   return (
     <Router>
       <Container>
-        <Navigation />
+        <Navigation routes={[['Home', '/'], ['Enter Transaction', '/entry'], ['Another route', '/another']]} />
         <div css={menuSpacer} />
 
         <div className="main-content" css={contentStyle}>

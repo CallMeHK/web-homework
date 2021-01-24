@@ -43,6 +43,8 @@ defmodule HomeworkWeb.Resolvers.TransactionsResolver do
   def update_transaction(_root, %{id: id} = args, _info) do
     transaction = Transactions.get_transaction!(id)
 
+    IO.inspect args
+
     case Transactions.update_transaction(transaction, args) do
       {:ok, transaction} ->
         {:ok, transaction}

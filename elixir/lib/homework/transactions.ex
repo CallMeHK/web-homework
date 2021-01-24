@@ -68,9 +68,11 @@ defmodule Homework.Transactions do
 
   """
   def update_transaction(%Transaction{} = transaction, attrs) do
-    transaction
-    |> Transaction.changeset(attrs)
-    |> Repo.update()
+
+     changes = Transaction.changeset(transaction,attrs)
+     IO.puts "TRANSACTION CHANGES"
+     IO.inspect changes
+     Repo.update(changes)
   end
 
   @doc """
