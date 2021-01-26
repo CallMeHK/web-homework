@@ -2,6 +2,13 @@ defmodule HomeworkWeb.Resolvers.UsersResolver do
   alias Homework.Users
 
   @doc """
+  Get a list of users that match the search param
+  """
+  def users(_root, %{search_name: search_name} = args, _info) do
+    {:ok, Users.search_users_by_name(args)}
+  end
+
+  @doc """
   Get a list of users
   """
   def users(_root, args, _info) do

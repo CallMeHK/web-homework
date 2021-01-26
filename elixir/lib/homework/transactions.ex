@@ -6,6 +6,7 @@ defmodule Homework.Transactions do
   import Ecto.Query, warn: false
   alias Homework.Repo
 
+
   alias Homework.Transactions.Transaction
 
   @doc """
@@ -17,8 +18,23 @@ defmodule Homework.Transactions do
       [%Transaction{}, ...]
 
   """
-  def list_transactions(_args) do
-    Repo.all(Transaction)
+  def list_transactions(args) do
+    max_query =
+      case args do
+        %{max: max} -> dynamic([t], t.amount < ^max)
+        _ -> true
+      end
+
+    min_query =
+      case args do
+        %{min: min} -> dynamic([t], ^min < t.amount)
+        _ -> true
+      end
+
+    Transaction
+    |> where(^max_query)
+    |> where(^min_query)
+    |> Repo.all()
   end
 
   @doc """

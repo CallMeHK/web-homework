@@ -22,6 +22,24 @@ defmodule Homework.Merchants do
   end
 
   @doc """
+  Returns the list of merchants.
+
+  ## Examples
+
+      iex> list_merchants([])
+      [%Merchant{}, ...]
+
+  """
+  def search_merchants_by_name(args) do
+    Ecto.Query.from(
+      m in Merchant,
+      where: fragment("SIMILARITY(?, ?) > 0",  m.name, ^args.search_name),
+      order_by: fragment("LEVENSHTEIN(?, ?)", m.name, ^args.search_name)
+    )
+    |> Repo.all()
+  end
+
+  @doc """
   Gets a single merchant.
 
   Raises `Ecto.NoResultsError` if the Merchant does not exist.

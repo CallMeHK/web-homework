@@ -22,6 +22,24 @@ defmodule Homework.Users do
   end
 
   @doc """
+  Returns the list of users.
+
+  ## Examples
+
+      iex> list_users([])
+      [%User{}, ...]
+
+  """
+  def search_users_by_name(args) do
+    Ecto.Query.from(
+      u in User,
+      where: fragment("SIMILARITY(?, ?) > 0",  fragment("first_name || ' ' || last_name"), ^args.search_name),
+      order_by: fragment("LEVENSHTEIN(?, ?)", fragment("first_name || ' ' || last_name"), ^args.search_name)
+    )
+    |> Repo.all()
+  end
+
+  @doc """
   Gets a single user.
 
   Raises `Ecto.NoResultsError` if the User does not exist.

@@ -16,17 +16,18 @@ defmodule Homework.SeedDB do
   alias Homework.Users.User
   alias Homework.Merchants.Merchant
   alias Homework.Transactions.Transaction
+  alias Homework.Companies.Company
 
-  @items [{"Ring of Health", 175},
-   {"Platemail", 1400},
-    {"Mjolnir", 5675},
-    {"Daedalus",4950},
-    {"Mask of Madness",1750},
-    {"Sheepstick", 5310},
-    {"BKB", 4375},
-    {"MKB", 4600},
-    {"Heart of Tarrasque", 5150},
-    {"Eye of Skadi", 5925}]
+  @items [{"Needed to fix buster", 175},
+   {"Potions for mom", 1400},
+    {"Doctor visit, bitten by large snake", 5675},
+    {"Daedalus for next dinner",4950},
+    {"Arena fees",1750},
+    {"Potions for a client", 5310},
+    {"Unexpected motorcycle maintenance", 4375},
+    {"Train ride to the Dons", 4600},
+    {"Entertainment", 5150},
+    {"Ferry fair for Fairfield", 5925}]
 
 
   def add_insert_update_dates(mappable) do
@@ -40,19 +41,35 @@ defmodule Homework.SeedDB do
     )
   end
 
-  def seed_users do
+  def seed_companies do
+    Repo.insert_all(Company,
+      [%{name: "Shinra", credit_line: 600000000},
+      %{name: "Avalanche", credit_line: 12300060},
+      %{name: "Potions and Stuff", credit_line: 4000099}]
+      |> add_insert_update_dates,
+      returning: true
+      )
+  end
+
+  def seed_users(company_id_map) do
     Repo.insert_all(User,
-      [%{first_name: "cloud", last_name: "strife", dob: "1/1/1994"},
-      %{first_name: "tifa", last_name: "lockhart", dob: "2/2/1995"},
-      %{first_name: "aerith", last_name: "gainsborough", dob: "6/6/1999"},
-      %{first_name: "barret", last_name: "wallace", dob: "3/3/1996"}]
+      [%{first_name: "cloud", last_name: "strife", dob: "1/1/1994",company_id: company_id_map["Avalanche"]},
+      %{first_name: "tifa", last_name: "lockhart", dob: "2/2/1995",company_id: company_id_map["Avalanche"]},
+      %{first_name: "aerith", last_name: "gainsborough", dob: "6/6/1999",company_id: company_id_map["Avalanche"]},
+      %{first_name: "rufus", last_name: "Shinra", dob: "6/6/1999",company_id: company_id_map["Shinra"]},
+      %{first_name: "rude", last_name: "Henchman", dob: "6/6/1999",company_id: company_id_map["Shinra"]},
+      %{first_name: "reno", last_name: "Henchman", dob: "6/6/1999",company_id: company_id_map["Shinra"]},
+      %{first_name: "shopkeeper", last_name: "ron", dob: "6/6/1999",company_id: company_id_map["Potions and Stuff"]},
+      %{first_name: "shopkeeper", last_name: "bill", dob: "6/6/1999",company_id: company_id_map["Potions and Stuff"]},
+      %{first_name: "shopkeeper", last_name: "jerry", dob: "6/6/1999",company_id: company_id_map["Potions and Stuff"]},
+      %{first_name: "barret", last_name: "wallace", dob: "3/3/1996",company_id: company_id_map["Avalanche"]}]
       |> add_insert_update_dates,
       returning: true
       )
   end
 
   def seed_merchants do
-    query = Repo.insert_all(Merchant,
+    Repo.insert_all(Merchant,
     [%{name: "side shop", description: "a shop with basic items"},
       %{name: "secret shop", description: "a shop with special items"},
       %{name: "shop shop", description: "a shop with more basic items, but no secret items"}]
@@ -75,7 +92,7 @@ defmodule Homework.SeedDB do
   def seed_transactions(user_ids, merchant_ids) do
 
     transactions = Enum.map(user_ids, &(
-      for n <- 1..Enum.random(3..10), do:
+      for _n <- 1..Enum.random(3..10), do:
         Map.merge(rand_transaction_data(), %{ user_id: &1, merchant_id: Enum.random(merchant_ids) })))
       |> List.flatten
 
@@ -87,11 +104,16 @@ defmodule Homework.SeedDB do
 
 
   def run_seed do
-    {_num_inserted_users, users} = seed_users()
+    {_num_inserted_companies, seeded_companies} = seed_companies()
+
+    company_id_map = Enum.reduce(seeded_companies, %{}, fn(comp, accumulator) ->
+      Map.merge(accumulator, %{comp.name => comp.id})
+    end)
+
+    {_num_inserted_users, users} = seed_users(company_id_map)
     {_num_inserted_merchants, merchants} = seed_merchants()
 
     seed_transactions(Enum.map(users, &(&1.id)), Enum.map(merchants, &(&1.id)))
-
   end
 
 end

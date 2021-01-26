@@ -1,0 +1,127 @@
+defmodule Homework.Companies do
+  @moduledoc """
+  The Companies context.
+  """
+
+  import Ecto.Query, warn: false
+  alias Homework.Repo
+
+  alias Homework.Companies.Company
+  alias Homework.Users.User
+  alias Homework.Transactions.Transaction
+
+  @query_with_virtual_field from c in Company,
+      left_join: u in User, on: c.id == u.company_id,
+      left_join: t in Transaction, on: u.id == t.user_id,
+      group_by: [c.id, c.name, c.credit_line],
+      select_merge: %{ available_credit: c.credit_line - sum(t.amount) }
+
+
+  def convert_credit_line_nil_to_zero(company) do
+    if company.available_credit == nil do
+      Map.merge(company, %{available_credit: company.credit_line})
+    else
+      company
+    end
+  end
+
+  @doc """
+  Returns the list of companies.
+
+  ## Examples
+
+      iex> list_companies([])
+      [%Company{}, ...]
+
+  """
+  def list_companies(_args) do
+    Repo.all(@query_with_virtual_field)
+    |> Enum.map(&(convert_credit_line_nil_to_zero(&1)))
+  end
+
+  @doc """
+  Gets a single company.
+
+  Raises `Ecto.NoResultsError` if the Merchant does not exist.
+
+  ## Examples
+
+      iex> get_company!(123)
+      %Company{}
+
+      iex> get_company!(456)
+      ** (Ecto.NoResultsError)
+
+  """
+  def get_company!(id) do
+    Repo.get!(@query_with_virtual_field, id)
+    |> convert_credit_line_nil_to_zero
+  end
+
+  @doc """
+  Creates a company.
+
+  ## Examples
+
+      iex> create_company(%{field: value})
+      {:ok, %Company{}}
+
+      iex> create_company(%{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def create_company(attrs \\ %{}) do
+    %Company{}
+    |> Company.changeset(attrs)
+    |> Repo.insert()
+    |> convert_credit_line_nil_to_zero
+  end
+
+  @doc """
+  Updates a company.
+
+  ## Examples
+
+      iex> update_company(company, %{field: new_value})
+      {:ok, %Company{}}
+
+      iex> update_company(company, %{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def update_company(%Company{} = company, attrs) do
+    company
+    |> Company.changeset(attrs)
+    |> Repo.update()
+    |> convert_credit_line_nil_to_zero
+  end
+
+  @doc """
+  Deletes a company.
+
+  ## Examples
+
+      iex> delete_company(company)
+      {:ok, %Company{}}
+
+      iex> delete_company(company)
+      {:error, %Ecto.Changeset{}}
+
+  """
+  # def delete_company(%Company{} = company) do
+  #   Repo.delete(company)
+  # end
+
+  @doc """
+  Returns an `%Ecto.Changeset{}` for tracking company changes.
+
+  ## Examples
+
+      iex> change_company(company)
+      %Ecto.Changeset{data: %Company{}}
+
+  """
+  def change_company(%Company{} = company, attrs \\ %{}) do
+    company.changeset(company, attrs)
+  end
+end
