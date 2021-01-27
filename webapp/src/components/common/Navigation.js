@@ -13,9 +13,7 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemIcon from '@material-ui/core/ListItemIcon'
 import ListItemText from '@material-ui/core/ListItemText'
-import InboxIcon from '@material-ui/icons/MoveToInbox'
-import MailIcon from '@material-ui/icons/Mail'
-import FormatListBulletedIcon from '@material-ui/icons/FormatListBulleted';
+import FormatListBulletedIcon from '@material-ui/icons/FormatListBulleted'
 
 export const Navigation = ({ routes }) => {
   const history = useHistory()
@@ -34,18 +32,24 @@ export const Navigation = ({ routes }) => {
     <>
       <AppBar position="fixed">
         <Toolbar>
-          <IconButton color="inherit" aria-label="open drawer" onClick={handleDrawerOpen} edge="start">
+          <IconButton
+            data-testid="toggle-nav-open"
+            aria-label="open drawer"
+            color="inherit"
+            edge="start"
+            onClick={handleDrawerOpen}
+          >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap>
+          <Typography noWrap variant="h6">
             Very cool app
           </Typography>
         </Toolbar>
       </AppBar>
-      <Drawer variant="persistent" anchor="left" open={open}>
+      <Drawer anchor="left" open={open} variant="persistent">
         <div>
           <IconButton onClick={handleDrawerClose}>
-            <ChevronLeftIcon />
+            <ChevronLeftIcon data-testid="toggle-nav-closed" />
           </IconButton>
         </div>
         <Divider />
@@ -59,7 +63,9 @@ export const Navigation = ({ routes }) => {
                 handleDrawerClose()
               }}
             >
-              <ListItemIcon><FormatListBulletedIcon/></ListItemIcon>
+              <ListItemIcon>
+                <FormatListBulletedIcon />
+              </ListItemIcon>
               <ListItemText primary={linkName} />
             </ListItem>
           ))}

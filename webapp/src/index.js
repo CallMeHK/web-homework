@@ -25,7 +25,7 @@ const darkTheme = createMuiTheme({
 })
 
 ReactDOM.render(
-  <div data-app-init="">
+  <div data-app-init=''>
     <ThemeProvider theme={darkTheme}>
       <CssBaseline />
       <ApolloProvider client={client}>

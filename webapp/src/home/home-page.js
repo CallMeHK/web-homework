@@ -11,26 +11,28 @@ export const Home = () => {
       <div css={cardContainerStyle}>
         <Card>
           <CardContent>
-            <Typography color="textSecondary" variant="h3" gutterBottom>
+            <Typography color='textSecondary' gutterBottom variant='h3'>
               Welcome!
             </Typography>
 
-            <Typography variant="body2" component="p">
+            <Typography component='p' variant='body2'>
               I hope this day finds you well! To finish{' '}
-              <Link color="secondary" href="https://github.com/DivvyPayHQ/web-homework">
-                divvy's web-homework
+              <Link color='secondary' href='https://github.com/DivvyPayHQ/web-homework'>
+                divvy&apos;s web-homework
               </Link>
               , I used the elixir server and a dockerized postges database. The database can be started with
               `docker-compose up`, and can be seeded using `mix exto.setup`. Here are the objectives completed from the
               frontend and backend readme files:
             </Typography>
 
-            <Typography variant="body2" component="div">
+            <Typography component='div' variant='body2'>
               <ul css={listStyle}>
                 <li>
                   Write a basic user inerface that allows users to enter, edit, and remove transactions.
                   <ul css={sublistStyle}>
-                    <li>A transaction creation form can be found on the '/entry' route to enter transactions.</li>
+                    <li>
+                      A transaction creation form can be found on the &apos;/entry&apos; route to enter transactions.
+                    </li>
                     <li>
                       Transaction editing can found in the drop down on each transaction table row, through a modal.
                     </li>
@@ -99,10 +101,6 @@ const centerPageStyle = css`
   display: flex;
   justify-content: center;
   align-items: center;
-`
-
-const cardSpacerStyle = css`
-  height: 20px;
 `
 
 const cardContainerStyle = css`

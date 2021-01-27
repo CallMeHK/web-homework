@@ -1,4 +1,4 @@
-import { arrayOf, string, bool, number, shape, func } from 'prop-types'
+import { string, bool, number, shape } from 'prop-types'
 
 export const merchant = shape({
   id: string,
@@ -32,10 +32,10 @@ export const transaction = shape({
 })
 
 export const initialEditStateType = shape({
-    txId: string,
-    user: string,
-    merchant: string,
-    amount: string,
-    paymentType: string,
-    description: string
+  txId: string,
+  user: string,
+  merchant: string,
+  amount: string,
+  paymentType: string,
+  description: string
 })

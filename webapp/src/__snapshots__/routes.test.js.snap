@@ -1,0 +1,417 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`routes Routes should render correctly 1`] = `
+.emotion-0 {
+  height: 100px;
+}
+
+.emotion-10 {
+  grid-row: 2;
+}
+
+.emotion-9 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.emotion-8 {
+  max-width: 720px;
+}
+
+.emotion-7 {
+  padding: 10px 25px;
+}
+
+.emotion-1 {
+  padding-left: 25px;
+}
+
+<div
+  className="MuiContainer-root MuiContainer-maxWidthLg"
+>
+  <header
+    className="MuiPaper-root MuiAppBar-root MuiAppBar-positionFixed MuiAppBar-colorPrimary mui-fixed MuiPaper-elevation4"
+  >
+    <div
+      className="MuiToolbar-root MuiToolbar-regular MuiToolbar-gutters"
+    >
+      <button
+        aria-label="open drawer"
+        className="MuiButtonBase-root MuiIconButton-root MuiIconButton-colorInherit MuiIconButton-edgeStart"
+        data-testid="toggle-nav-open"
+        disabled={false}
+        onBlur={[Function]}
+        onClick={[Function]}
+        onDragLeave={[Function]}
+        onFocus={[Function]}
+        onKeyDown={[Function]}
+        onKeyUp={[Function]}
+        onMouseDown={[Function]}
+        onMouseLeave={[Function]}
+        onMouseUp={[Function]}
+        onTouchEnd={[Function]}
+        onTouchMove={[Function]}
+        onTouchStart={[Function]}
+        tabIndex={0}
+        type="button"
+      >
+        <span
+          className="MuiIconButton-label"
+        >
+          <svg
+            aria-hidden={true}
+            className="MuiSvgIcon-root"
+            focusable="false"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"
+            />
+          </svg>
+        </span>
+      </button>
+      <h6
+        className="MuiTypography-root MuiTypography-h6 MuiTypography-noWrap"
+      >
+        Very cool app
+      </h6>
+    </div>
+  </header>
+  <div
+    className="MuiDrawer-root MuiDrawer-docked"
+  >
+    <div
+      className="MuiPaper-root MuiDrawer-paper MuiDrawer-paperAnchorLeft MuiDrawer-paperAnchorDockedLeft MuiPaper-elevation0"
+      style={
+        Object {
+          "visibility": "hidden",
+        }
+      }
+    >
+      <div>
+        <button
+          className="MuiButtonBase-root MuiIconButton-root"
+          disabled={false}
+          onBlur={[Function]}
+          onClick={[Function]}
+          onDragLeave={[Function]}
+          onFocus={[Function]}
+          onKeyDown={[Function]}
+          onKeyUp={[Function]}
+          onMouseDown={[Function]}
+          onMouseLeave={[Function]}
+          onMouseUp={[Function]}
+          onTouchEnd={[Function]}
+          onTouchMove={[Function]}
+          onTouchStart={[Function]}
+          tabIndex={0}
+          type="button"
+        >
+          <span
+            className="MuiIconButton-label"
+          >
+            <svg
+              aria-hidden={true}
+              className="MuiSvgIcon-root"
+              data-testid="toggle-nav-closed"
+              focusable="false"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"
+              />
+            </svg>
+          </span>
+        </button>
+      </div>
+      <hr
+        className="MuiDivider-root"
+      />
+      <ul
+        className="MuiList-root MuiList-padding"
+      >
+        <div
+          aria-disabled={false}
+          className="MuiButtonBase-root MuiListItem-root MuiListItem-gutters MuiListItem-button"
+          onBlur={[Function]}
+          onClick={[Function]}
+          onDragLeave={[Function]}
+          onFocus={[Function]}
+          onKeyDown={[Function]}
+          onKeyUp={[Function]}
+          onMouseDown={[Function]}
+          onMouseLeave={[Function]}
+          onMouseUp={[Function]}
+          onTouchEnd={[Function]}
+          onTouchMove={[Function]}
+          onTouchStart={[Function]}
+          role="button"
+          tabIndex={0}
+        >
+          <div
+            className="MuiListItemIcon-root"
+          >
+            <svg
+              aria-hidden={true}
+              className="MuiSvgIcon-root"
+              focusable="false"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M4 10.5c-.83 0-1.5.67-1.5 1.5s.67 1.5 1.5 1.5 1.5-.67 1.5-1.5-.67-1.5-1.5-1.5zm0-6c-.83 0-1.5.67-1.5 1.5S3.17 7.5 4 7.5 5.5 6.83 5.5 6 4.83 4.5 4 4.5zm0 12c-.83 0-1.5.68-1.5 1.5s.68 1.5 1.5 1.5 1.5-.68 1.5-1.5-.67-1.5-1.5-1.5zM7 19h14v-2H7v2zm0-6h14v-2H7v2zm0-8v2h14V5H7z"
+              />
+            </svg>
+          </div>
+          <div
+            className="MuiListItemText-root"
+          >
+            <span
+              className="MuiTypography-root MuiListItemText-primary MuiTypography-body1 MuiTypography-displayBlock"
+            >
+              Home
+            </span>
+          </div>
+        </div>
+        <div
+          aria-disabled={false}
+          className="MuiButtonBase-root MuiListItem-root MuiListItem-gutters MuiListItem-button"
+          onBlur={[Function]}
+          onClick={[Function]}
+          onDragLeave={[Function]}
+          onFocus={[Function]}
+          onKeyDown={[Function]}
+          onKeyUp={[Function]}
+          onMouseDown={[Function]}
+          onMouseLeave={[Function]}
+          onMouseUp={[Function]}
+          onTouchEnd={[Function]}
+          onTouchMove={[Function]}
+          onTouchStart={[Function]}
+          role="button"
+          tabIndex={0}
+        >
+          <div
+            className="MuiListItemIcon-root"
+          >
+            <svg
+              aria-hidden={true}
+              className="MuiSvgIcon-root"
+              focusable="false"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M4 10.5c-.83 0-1.5.67-1.5 1.5s.67 1.5 1.5 1.5 1.5-.67 1.5-1.5-.67-1.5-1.5-1.5zm0-6c-.83 0-1.5.67-1.5 1.5S3.17 7.5 4 7.5 5.5 6.83 5.5 6 4.83 4.5 4 4.5zm0 12c-.83 0-1.5.68-1.5 1.5s.68 1.5 1.5 1.5 1.5-.68 1.5-1.5-.67-1.5-1.5-1.5zM7 19h14v-2H7v2zm0-6h14v-2H7v2zm0-8v2h14V5H7z"
+              />
+            </svg>
+          </div>
+          <div
+            className="MuiListItemText-root"
+          >
+            <span
+              className="MuiTypography-root MuiListItemText-primary MuiTypography-body1 MuiTypography-displayBlock"
+            >
+              Transactions
+            </span>
+          </div>
+        </div>
+        <div
+          aria-disabled={false}
+          className="MuiButtonBase-root MuiListItem-root MuiListItem-gutters MuiListItem-button"
+          onBlur={[Function]}
+          onClick={[Function]}
+          onDragLeave={[Function]}
+          onFocus={[Function]}
+          onKeyDown={[Function]}
+          onKeyUp={[Function]}
+          onMouseDown={[Function]}
+          onMouseLeave={[Function]}
+          onMouseUp={[Function]}
+          onTouchEnd={[Function]}
+          onTouchMove={[Function]}
+          onTouchStart={[Function]}
+          role="button"
+          tabIndex={0}
+        >
+          <div
+            className="MuiListItemIcon-root"
+          >
+            <svg
+              aria-hidden={true}
+              className="MuiSvgIcon-root"
+              focusable="false"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M4 10.5c-.83 0-1.5.67-1.5 1.5s.67 1.5 1.5 1.5 1.5-.67 1.5-1.5-.67-1.5-1.5-1.5zm0-6c-.83 0-1.5.67-1.5 1.5S3.17 7.5 4 7.5 5.5 6.83 5.5 6 4.83 4.5 4 4.5zm0 12c-.83 0-1.5.68-1.5 1.5s.68 1.5 1.5 1.5 1.5-.68 1.5-1.5-.67-1.5-1.5-1.5zM7 19h14v-2H7v2zm0-6h14v-2H7v2zm0-8v2h14V5H7z"
+              />
+            </svg>
+          </div>
+          <div
+            className="MuiListItemText-root"
+          >
+            <span
+              className="MuiTypography-root MuiListItemText-primary MuiTypography-body1 MuiTypography-displayBlock"
+            >
+              Enter Transaction
+            </span>
+          </div>
+        </div>
+      </ul>
+      <hr
+        className="MuiDivider-root"
+      />
+    </div>
+  </div>
+  <div
+    className="emotion-0"
+  />
+  <div
+    className="main-content emotion-10"
+  >
+    <div
+      className="emotion-9"
+    >
+      <div
+        className="emotion-8"
+      >
+        <div
+          className="MuiPaper-root MuiCard-root MuiPaper-elevation1 MuiPaper-rounded"
+        >
+          <div
+            className="MuiCardContent-root"
+          >
+            <h3
+              className="MuiTypography-root MuiTypography-h3 MuiTypography-colorTextSecondary MuiTypography-gutterBottom"
+            >
+              Welcome!
+            </h3>
+            <p
+              className="MuiTypography-root MuiTypography-body2"
+            >
+              I hope this day finds you well! To finish
+               
+              <a
+                className="MuiTypography-root MuiLink-root MuiLink-underlineHover MuiTypography-colorSecondary"
+                href="https://github.com/DivvyPayHQ/web-homework"
+                onBlur={[Function]}
+                onFocus={[Function]}
+              >
+                divvy's web-homework
+              </a>
+              , I used the elixir server and a dockerized postges database. The database can be started with \`docker-compose up\`, and can be seeded using \`mix exto.setup\`. Here are the objectives completed from the frontend and backend readme files:
+            </p>
+            <div
+              className="MuiTypography-root MuiTypography-body2"
+            >
+              <ul
+                className="emotion-7"
+              >
+                <li>
+                  Write a basic user inerface that allows users to enter, edit, and remove transactions.
+                  <ul
+                    className="emotion-1"
+                  >
+                    <li>
+                      A transaction creation form can be found on the '/entry' route to enter transactions.
+                    </li>
+                    <li>
+                      Transaction editing can found in the drop down on each transaction table row, through a modal.
+                    </li>
+                    <li>
+                      Transaction deletion can be found in the drop down on each table row.
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  Add a user experience that showcases your abilities on the front end
+                  <ul
+                    className="emotion-1"
+                  >
+                    <li>
+                      Installed material UI.
+                    </li>
+                    <li>
+                      Set up a dark theme.
+                    </li>
+                    <li>
+                      Added side navigation.
+                    </li>
+                    <li>
+                      Improved the transaction table with nested views.
+                    </li>
+                    <li>
+                      Improved data shown from GQL query in transaction table.
+                    </li>
+                    <li>
+                      Added a dropdown and modal to improve edit, delete transaction operations.
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  Write filtering options for transactions, users, and/or merchants.
+                  <ul
+                    className="emotion-1"
+                  >
+                    <li>
+                      Implemented fuzzy searching for a user by first and last name on the graphql api. This was added to the Users query.
+                    </li>
+                    <li>
+                      Implemented fuzzy searching for a merchant by name. This was added to the Merchants query.
+                    </li>
+                    <li>
+                      Implemented arguments in the Transactions query to filter results by minimum and maximum amount.
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  Write a new schema, queries, and mutations to add companies to the app
+                  <ul
+                    className="emotion-1"
+                  >
+                    <li>
+                      Company has a name, credit_line, and available_credit which is the credit_line minus the total amount of transactions for the company.
+                    </li>
+                    <li>
+                      Users belong to a company. I added the available_credit database field as a virtual field in ecto, so I didnt feel like I needed to require transactions to pass in a company_id.
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  Seed the database.
+                  <ul
+                    className="emotion-1"
+                  >
+                    <li>
+                      Implemented with provided seeds.ex file.
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  Find the bug with transactions
+                  <ul
+                    className="emotion-1"
+                  >
+                    <li>
+                      Found and fixed the omission of :debit from the transactions ecto changeset.
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

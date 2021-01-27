@@ -11,7 +11,7 @@ import { css } from '@emotion/core'
 
 export const EntryPage = () => {
   const [data, setData] = React.useState({})
-  const { loading, error, _data = {} } = useQuery(GET_MERCHANTS_AND_USERS, {
+  const { loading, error } = useQuery(GET_MERCHANTS_AND_USERS, {
     onCompleted: fetched =>
       setData({
         ...fetched,
@@ -20,13 +20,13 @@ export const EntryPage = () => {
   })
 
   if (error) {
-    return <Fragment>¯\_(ツ)_/¯</Fragment>
+    return <>¯\_(ツ)_/¯</>
   }
 
   if (loading || !data.transactions) {
     return (
       <div css={loadingStyle}>
-        <CircularProgress color="secondary" />
+        <CircularProgress color='secondary' />
       </div>
     )
   }
@@ -44,10 +44,10 @@ export const EntryPage = () => {
       <div css={cardContainerStyle}>
         <Card>
           <CardContent>
-            <Typography color="textSecondary" gutterBottom>
+            <Typography color='textSecondary' gutterBottom>
               Transaction Entry Form
             </Typography>
-            <Typography variant="body2" component="p">
+            <Typography component='p' variant='body2'>
               Please enter the transaction information.
             </Typography>
             <TransactionForm data={data} formCallback={formCallback} />
@@ -56,7 +56,7 @@ export const EntryPage = () => {
         <div css={cardSpacerStyle} />
         <Card>
           <CardContent>
-            <Typography color="textSecondary" gutterBottom>
+            <Typography color='textSecondary' gutterBottom>
               Transactions added
             </Typography>
             <TxTable data={data} setData={setData} />

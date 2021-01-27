@@ -1,0 +1,165 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`home-page Home should render correctly 1`] = `
+.emotion-8 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.emotion-7 {
+  max-width: 720px;
+}
+
+.emotion-6 {
+  padding: 10px 25px;
+}
+
+.emotion-0 {
+  padding-left: 25px;
+}
+
+<div
+  className="emotion-8"
+>
+  <div
+    className="emotion-7"
+  >
+    <div
+      className="MuiPaper-root MuiCard-root MuiPaper-elevation1 MuiPaper-rounded"
+    >
+      <div
+        className="MuiCardContent-root"
+      >
+        <h3
+          className="MuiTypography-root MuiTypography-h3 MuiTypography-colorTextSecondary MuiTypography-gutterBottom"
+        >
+          Welcome!
+        </h3>
+        <p
+          className="MuiTypography-root MuiTypography-body2"
+        >
+          I hope this day finds you well! To finish
+           
+          <a
+            className="MuiTypography-root MuiLink-root MuiLink-underlineHover MuiTypography-colorSecondary"
+            href="https://github.com/DivvyPayHQ/web-homework"
+            onBlur={[Function]}
+            onFocus={[Function]}
+          >
+            divvy's web-homework
+          </a>
+          , I used the elixir server and a dockerized postges database. The database can be started with \`docker-compose up\`, and can be seeded using \`mix exto.setup\`. Here are the objectives completed from the frontend and backend readme files:
+        </p>
+        <div
+          className="MuiTypography-root MuiTypography-body2"
+        >
+          <ul
+            className="emotion-6"
+          >
+            <li>
+              Write a basic user inerface that allows users to enter, edit, and remove transactions.
+              <ul
+                className="emotion-0"
+              >
+                <li>
+                  A transaction creation form can be found on the '/entry' route to enter transactions.
+                </li>
+                <li>
+                  Transaction editing can found in the drop down on each transaction table row, through a modal.
+                </li>
+                <li>
+                  Transaction deletion can be found in the drop down on each table row.
+                </li>
+              </ul>
+            </li>
+            <li>
+              Add a user experience that showcases your abilities on the front end
+              <ul
+                className="emotion-0"
+              >
+                <li>
+                  Installed material UI.
+                </li>
+                <li>
+                  Set up a dark theme.
+                </li>
+                <li>
+                  Added side navigation.
+                </li>
+                <li>
+                  Improved the transaction table with nested views.
+                </li>
+                <li>
+                  Improved data shown from GQL query in transaction table.
+                </li>
+                <li>
+                  Added a dropdown and modal to improve edit, delete transaction operations.
+                </li>
+              </ul>
+            </li>
+            <li>
+              Write filtering options for transactions, users, and/or merchants.
+              <ul
+                className="emotion-0"
+              >
+                <li>
+                  Implemented fuzzy searching for a user by first and last name on the graphql api. This was added to the Users query.
+                </li>
+                <li>
+                  Implemented fuzzy searching for a merchant by name. This was added to the Merchants query.
+                </li>
+                <li>
+                  Implemented arguments in the Transactions query to filter results by minimum and maximum amount.
+                </li>
+              </ul>
+            </li>
+            <li>
+              Write a new schema, queries, and mutations to add companies to the app
+              <ul
+                className="emotion-0"
+              >
+                <li>
+                  Company has a name, credit_line, and available_credit which is the credit_line minus the total amount of transactions for the company.
+                </li>
+                <li>
+                  Users belong to a company. I added the available_credit database field as a virtual field in ecto, so I didnt feel like I needed to require transactions to pass in a company_id.
+                </li>
+              </ul>
+            </li>
+            <li>
+              Seed the database.
+              <ul
+                className="emotion-0"
+              >
+                <li>
+                  Implemented with provided seeds.ex file.
+                </li>
+              </ul>
+            </li>
+            <li>
+              Find the bug with transactions
+              <ul
+                className="emotion-0"
+              >
+                <li>
+                  Found and fixed the omission of :debit from the transactions ecto changeset.
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

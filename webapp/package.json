@@ -6,7 +6,9 @@
     "build": "webpack -d",
     "reset": "rm -rf node_modules 2> /dev/null && yarn boot",
     "start": "webpack-dev-server -d --hot",
-    "test": "jest --coverage"
+    "test": "jest --coverage",
+    "test-watch": "jest --watch",
+    "fix": "eslint src/** --fix"
   },
   "resolutions": {
     "elliptic": " 6.5.3",
@@ -28,6 +30,9 @@
   "jest": {
     "setupFiles": [
       "./test.setup.js"
+    ],
+    "collectCoverageFrom": [
+      "src/**/*.js"
     ],
     "setupFilesAfterEnv": [
       "./jest.config.framework.js"
@@ -68,8 +73,8 @@
     "graphql": "14.3.1",
     "graphql-tag": "^2.10.1",
     "prop-types": "15.7.2",
-    "react": "16.8.6",
-    "react-dom": "16.8.6",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
     "react-hook-form": "^6.14.2",
     "react-hot-loader": "4.11.0",
     "react-router-dom": "^5.2.0"
@@ -105,8 +110,8 @@
     "@babel/register": "7.4.4",
     "@babel/runtime": "7.4.5",
     "@emotion/babel-preset-css-prop": "10.0.9",
-    "@testing-library/jest-dom": "5.11.4",
-    "@testing-library/react": "10.4.9",
+    "@testing-library/jest-dom": "^5.11.4",
+    "@testing-library/react": "^11.2.3",
     "babel-eslint": "10.0.1",
     "babel-jest": "24.8.0",
     "babel-loader": "8.0.6",
@@ -147,7 +152,9 @@
     "jest-json-schema": "2.0.2",
     "jest-runner-eslint": "0.7.4",
     "jest-transform-graphql": "2.1.0",
-    "jsdom": "15.1.1",
+    "jsdom": "^16.4.0",
+    "mutation-observer": "^1.0.3",
+    "mutationobserver-shim": "^0.3.7",
     "prettier": "1.18.2",
     "prettier-eslint-cli": "4.7.1",
     "react-addons-perf": "15.4.2",

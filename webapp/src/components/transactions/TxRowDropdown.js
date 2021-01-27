@@ -16,7 +16,7 @@ export const TxRowDropdown = ({ transaction }) => {
   const [open, setOpen] = React.useState(false)
   const anchorRef = React.useRef(null)
   const form = useFormContext()
-  const [deleteTransaction, { data }] = useMutation(DELETE_TRANSACTION)
+  const [deleteTransaction] = useMutation(DELETE_TRANSACTION)
 
   const handleEdit = () => {
     form.openEditModal(transaction)
@@ -65,15 +65,16 @@ export const TxRowDropdown = ({ transaction }) => {
   return (
     <>
       <IconButton
-        ref={anchorRef}
-        aria-label="more"
         aria-controls="long-menu"
         aria-haspopup="true"
+        aria-label="more"
         onClick={handleToggle}
+        ref={anchorRef}
+        data-testid={'dropdown'}
       >
         <MoreVertIcon />
       </IconButton>
-      <Popper open={open} anchorEl={anchorRef.current} role={undefined} transition>
+      <Popper anchorEl={anchorRef.current} open={open} role={undefined} transition>
         {({ TransitionProps, placement }) => (
           <Grow
             {...TransitionProps}
@@ -82,8 +83,12 @@ export const TxRowDropdown = ({ transaction }) => {
             <Paper>
               <ClickAwayListener onClickAway={handleClose}>
                 <MenuList autoFocusItem={open} id="menu-list-grow" onKeyDown={handleListKeyDown}>
-                  <MenuItem onClick={handleEdit}>Edit</MenuItem>
-                  <MenuItem onClick={removeTransaction}>Delete</MenuItem>
+                  <MenuItem data-testid="edit" onClick={handleEdit}>
+                    Edit
+                  </MenuItem>
+                  <MenuItem data-testid="delete" onClick={removeTransaction}>
+                    Delete
+                  </MenuItem>
                 </MenuList>
               </ClickAwayListener>
             </Paper>

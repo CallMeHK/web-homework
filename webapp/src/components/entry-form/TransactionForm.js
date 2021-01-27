@@ -1,7 +1,7 @@
 import React from 'react'
-import { arrayOf, string, bool, number, shape, func } from 'prop-types'
+import { arrayOf, bool, shape, func } from 'prop-types'
 import { transaction, user, merchant, initialEditStateType } from '../../utils/types'
-import { useForm, Controller, useWatch } from 'react-hook-form'
+import { useForm, Controller } from 'react-hook-form'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
 import { css } from '@emotion/core'
@@ -14,13 +14,11 @@ import UPDATE_TRANSACTION from '../../gql/update_transaction.gql'
 import { useMutation } from '@apollo/client'
 import { currency } from '../../utils/currency'
 
-
-
 export const TransactionForm = ({ data, formCallback, editValues, edit }) => {
   const { control, errors, handleSubmit, reset, setValue } = useForm({
     mode: 'onTouched'
   })
-  const [createOrEditTransaction, { _data }] = useMutation(edit ? UPDATE_TRANSACTION : CREATE_TRANSACTION)
+  const [createOrEditTransaction] = useMutation(edit ? UPDATE_TRANSACTION : CREATE_TRANSACTION)
 
   const { merchants, users } = data
 
@@ -59,14 +57,13 @@ export const TransactionForm = ({ data, formCallback, editValues, edit }) => {
   return (
     <form>
       <Controller
-        name="user"
         control={control}
         defaultValue={edit ? editValues.user : ''}
-        rules={{ required: true }}
+        name="user"
         render={({ onChange, onBlur, value }) => (
           <FormControl css={largeTextFieldStyle}>
             <InputLabel>User Name</InputLabel>
-            <Select native value={value} onChange={onChange} onBlur={onBlur}>
+            <Select native onBlur={onBlur} onChange={onChange} value={value} inputProps={{ 'data-testid': 'user' }}>
               <option aria-label="None" value="" />
               <>
                 {users.map(({ firstName, lastName, id }) => (
@@ -79,16 +76,16 @@ export const TransactionForm = ({ data, formCallback, editValues, edit }) => {
             {errors.user && <div style={{ color: 'red' }}>Required</div>}
           </FormControl>
         )}
+        rules={{ required: true }}
       />
       <Controller
-        name="merchant"
         control={control}
         defaultValue={edit ? editValues.merchant : ''}
-        rules={{ required: true }}
+        name="merchant"
         render={({ onChange, onBlur, value }) => (
           <FormControl css={largeTextFieldStyle}>
             <InputLabel>Merchant</InputLabel>
-            <Select native value={value} onChange={onChange} onBlur={onBlur}>
+            <Select native onBlur={onBlur} onChange={onChange} value={value} inputProps={{ 'data-testid': 'merchant' }}>
               <option aria-label="None" value="" />
               <>
                 {merchants.map(({ name, id }) => (
@@ -101,16 +98,22 @@ export const TransactionForm = ({ data, formCallback, editValues, edit }) => {
             {errors.merchant && <div style={{ color: 'red' }}>Required</div>}
           </FormControl>
         )}
+        rules={{ required: true }}
       />
       <Controller
-        name="paymentType"
         control={control}
         defaultValue={edit ? editValues.paymentType : ''}
-        rules={{ required: true }}
+        name="paymentType"
         render={({ onChange, onBlur, value }) => (
           <FormControl css={largeTextFieldStyle}>
             <InputLabel>Payment Type</InputLabel>
-            <Select native value={value} onChange={onChange} onBlur={onBlur}>
+            <Select
+              native
+              onBlur={onBlur}
+              onChange={onChange}
+              value={value}
+              inputProps={{ 'data-testid': 'paymentType' }}
+            >
               <option aria-label="None" value="" />
               <>
                 {['Credit', 'Debit', 'Other'].map(elt => (
@@ -123,41 +126,50 @@ export const TransactionForm = ({ data, formCallback, editValues, edit }) => {
             {errors.paymentType && <div style={{ color: 'red' }}>Required</div>}
           </FormControl>
         )}
+        rules={{ required: true }}
       />
       <Controller
-        name="description"
         control={control}
         defaultValue={edit ? editValues.description : ''}
-        rules={{ required: true }}
+        name="description"
         render={({ onChange, onBlur, value }) => (
           <>
             <TextField
-              label="Description"
-              onBlur={onBlur}
               css={largeTextFieldStyle}
+              label="Description"
+              inputProps={{ 'data-testid': 'description' }}
+              onBlur={onBlur}
               onChange={onChange}
               value={value}
             />
             {errors.description && <div style={{ color: 'red', marginLeft: 10 }}>Required</div>}
           </>
         )}
+        rules={{ required: true }}
       />
       <Controller
-        name="amount"
         control={control}
         defaultValue={edit ? editValues.amount : ''}
-        rules={{ required: true, validate: validateAmount }}
+        name="amount"
         render={({ onChange, onBlur, value }) => (
           <div>
-            <TextField label="Amount" css={largeTextFieldStyle} onBlur={onBlur} onChange={onChange} value={value} />
+            <TextField
+              css={largeTextFieldStyle}
+              label="Amount"
+              onBlur={onBlur}
+              onChange={onChange}
+              value={value}
+              inputProps={{ 'data-testid': 'amount' }}
+            />
             {errors.amount && <div style={{ color: 'red', marginLeft: 10 }}>{errors.amount.message || 'Required'}</div>}
           </div>
         )}
+        rules={{ required: true, validate: validateAmount }}
       />
       <Divider />
       <div css={formSpacerStyle} />
 
-      <Button variant="contained" onClick={handleSubmit(onSubmit)}>
+      <Button onClick={handleSubmit(onSubmit)} variant="contained">
         {edit ? 'Update' : 'Submit'}
       </Button>
     </form>
@@ -175,7 +187,7 @@ TransactionForm.propTypes = {
   edit: bool
 }
 
-const validateAmount = amount => {
+export const validateAmount = amount => {
   const standardError = 'Please enter dollars and cents (Ex 249.99)'
 
   const amtArray = amount.split('.')

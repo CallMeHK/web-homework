@@ -1,5 +1,5 @@
 import React from 'react'
-import { func } from 'prop-types'
+import { func, any } from 'prop-types'
 import { currency } from '../utils/currency'
 
 export const FormContext = React.createContext({})
@@ -36,5 +36,6 @@ export const FormContextProvider = ({ children, setData }) => {
 }
 
 FormContextProvider.propTypes = {
-  setData: func.isRequired
+  setData: func.isRequired,
+  children: any
 }

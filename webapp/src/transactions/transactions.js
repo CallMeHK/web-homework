@@ -5,16 +5,16 @@ import GET_TABLE_DATA from '../gql/transactions.gql'
 import { TxTable } from '../components/transactions/TxTable'
 import CircularProgress from '@material-ui/core/CircularProgress'
 
-export function Transactions() {
+export function Transactions () {
   const [data, setData] = React.useState({ transactions: [] })
-  const { loading, error, fetchedData = {} } = useQuery(GET_TABLE_DATA, {
+  const { loading, error } = useQuery(GET_TABLE_DATA, {
     onCompleted: fetched => setData(fetched)
   })
 
   if (loading) {
     return (
       <div css={loadingStyle}>
-        <CircularProgress color="secondary" />
+        <CircularProgress color='secondary' />
       </div>
     )
   }
