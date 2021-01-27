@@ -1,9 +1,7 @@
 import React from 'react'
-import { arrayOf, string, bool, number, shape } from 'prop-types'
+import { arrayOf, string, bool, number, shape, func } from 'prop-types'
+import { transaction, user, merchant } from '../../utils/types'
 import { css } from '@emotion/core'
-import Box from '@material-ui/core/Box'
-import Collapse from '@material-ui/core/Collapse'
-import IconButton from '@material-ui/core/IconButton'
 import Table from '@material-ui/core/Table'
 import TableBody from '@material-ui/core/TableBody'
 import TableCell from '@material-ui/core/TableCell'
@@ -15,14 +13,7 @@ import { TxTableRow } from './TxTableRow'
 import { EditModal } from '../modal/EditModal'
 import { FormContextProvider } from '../../context/form.context'
 
-const styles = css`
-  .header {
-    font-weight: bold;
-  }
-`
-
 export function TxTable({ data, setData }) {
-  console.log(data)
   const [open, setOpen] = React.useState(false)
 
   return (
@@ -54,15 +45,10 @@ export function TxTable({ data, setData }) {
 }
 
 TxTable.propTypes = {
-  data: arrayOf(
-    shape({
-      id: string,
-      user_id: string,
-      description: string,
-      merchant_id: string,
-      debit: bool,
-      credit: bool,
-      amount: number
-    })
-  )
+  data: shape({
+    transactions: arrayOf(transaction),
+    users: arrayOf(user),
+    merchants: arrayOf(merchant)
+  }).isRequired,
+  setData: func.isRequired
 }

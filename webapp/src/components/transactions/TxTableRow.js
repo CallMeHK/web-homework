@@ -1,5 +1,6 @@
 import React from 'react'
 import { arrayOf, string, bool, number, shape } from 'prop-types'
+import { transaction } from '../../utils/types'
 import { css } from '@emotion/core'
 import Box from '@material-ui/core/Box'
 import Collapse from '@material-ui/core/Collapse'
@@ -55,6 +56,9 @@ export function TxTableRow(props) {
   )
 }
 
+TxTableRow.propTypes = {
+  transaction: transaction.isRequired
+}
 const collapsibleCellStyle = css({
   maxWidth: 600,
   width: '50%',

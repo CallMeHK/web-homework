@@ -1,4 +1,5 @@
 import React from 'react'
+import { arrayOf, string } from 'prop-types'
 import { useHistory } from 'react-router-dom'
 import Drawer from '@material-ui/core/Drawer'
 import AppBar from '@material-ui/core/AppBar'
@@ -14,6 +15,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon'
 import ListItemText from '@material-ui/core/ListItemText'
 import InboxIcon from '@material-ui/icons/MoveToInbox'
 import MailIcon from '@material-ui/icons/Mail'
+import FormatListBulletedIcon from '@material-ui/icons/FormatListBulleted';
 
 export const Navigation = ({ routes }) => {
   const history = useHistory()
@@ -48,24 +50,26 @@ export const Navigation = ({ routes }) => {
         </div>
         <Divider />
         <List>
-          {routes.map(
-            ([linkName, goToUrl], index) => (
-              <ListItem
-                button
-                key={linkName + index}
-                onClick={() => {
-                  history.push(goToUrl)
-                  handleDrawerClose()
-                }}
-              >
-                <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-                <ListItemText primary={linkName} />
-              </ListItem>
-            )
-          )}
+          {routes.map(([linkName, goToUrl], index) => (
+            <ListItem
+              button
+              key={linkName + index}
+              onClick={() => {
+                history.push(goToUrl)
+                handleDrawerClose()
+              }}
+            >
+              <ListItemIcon><FormatListBulletedIcon/></ListItemIcon>
+              <ListItemText primary={linkName} />
+            </ListItem>
+          ))}
         </List>
         <Divider />
       </Drawer>
     </>
   )
+}
+
+Navigation.propTypes = {
+  routes: arrayOf(arrayOf(string)).isRequired
 }

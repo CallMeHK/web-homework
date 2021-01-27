@@ -1,12 +1,12 @@
 import React from 'react'
+import { arrayOf, string, bool, number, shape, func } from 'prop-types'
+import { transaction, user, merchant, initialEditStateType } from '../../utils/types'
 import { useForm, Controller, useWatch } from 'react-hook-form'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
 import { css } from '@emotion/core'
 import Divider from '@material-ui/core/Divider'
 import InputLabel from '@material-ui/core/InputLabel'
-import MenuItem from '@material-ui/core/MenuItem'
-import FormHelperText from '@material-ui/core/FormHelperText'
 import FormControl from '@material-ui/core/FormControl'
 import Select from '@material-ui/core/Select'
 import CREATE_TRANSACTION from '../../gql/create_transaction.gql'
@@ -14,8 +14,10 @@ import UPDATE_TRANSACTION from '../../gql/update_transaction.gql'
 import { useMutation } from '@apollo/client'
 import { currency } from '../../utils/currency'
 
+
+
 export const TransactionForm = ({ data, formCallback, editValues, edit }) => {
-  const { control, watch, formState, errors, handleSubmit, reset, setValue } = useForm({
+  const { control, errors, handleSubmit, reset, setValue } = useForm({
     mode: 'onTouched'
   })
   const [createOrEditTransaction, { _data }] = useMutation(edit ? UPDATE_TRANSACTION : CREATE_TRANSACTION)
@@ -59,7 +61,7 @@ export const TransactionForm = ({ data, formCallback, editValues, edit }) => {
       <Controller
         name="user"
         control={control}
-        defaultValue={edit ? editValues.user : ""}
+        defaultValue={edit ? editValues.user : ''}
         rules={{ required: true }}
         render={({ onChange, onBlur, value }) => (
           <FormControl css={largeTextFieldStyle}>
@@ -81,7 +83,7 @@ export const TransactionForm = ({ data, formCallback, editValues, edit }) => {
       <Controller
         name="merchant"
         control={control}
-        defaultValue={edit ? editValues.merchant : ""}
+        defaultValue={edit ? editValues.merchant : ''}
         rules={{ required: true }}
         render={({ onChange, onBlur, value }) => (
           <FormControl css={largeTextFieldStyle}>
@@ -103,7 +105,7 @@ export const TransactionForm = ({ data, formCallback, editValues, edit }) => {
       <Controller
         name="paymentType"
         control={control}
-        defaultValue={edit ? editValues.paymentType : ""}
+        defaultValue={edit ? editValues.paymentType : ''}
         rules={{ required: true }}
         render={({ onChange, onBlur, value }) => (
           <FormControl css={largeTextFieldStyle}>
@@ -125,7 +127,7 @@ export const TransactionForm = ({ data, formCallback, editValues, edit }) => {
       <Controller
         name="description"
         control={control}
-        defaultValue={edit ? editValues.description : ""}
+        defaultValue={edit ? editValues.description : ''}
         rules={{ required: true }}
         render={({ onChange, onBlur, value }) => (
           <>
@@ -143,7 +145,7 @@ export const TransactionForm = ({ data, formCallback, editValues, edit }) => {
       <Controller
         name="amount"
         control={control}
-        defaultValue={edit ? editValues.amount : ""}
+        defaultValue={edit ? editValues.amount : ''}
         rules={{ required: true, validate: validateAmount }}
         render={({ onChange, onBlur, value }) => (
           <div>
@@ -160,6 +162,17 @@ export const TransactionForm = ({ data, formCallback, editValues, edit }) => {
       </Button>
     </form>
   )
+}
+
+TransactionForm.propTypes = {
+  data: shape({
+    transactions: arrayOf(transaction),
+    users: arrayOf(user),
+    merchants: arrayOf(merchant)
+  }).isRequired,
+  formCallback: func.isRequired,
+  editValues: initialEditStateType,
+  edit: bool
 }
 
 const validateAmount = amount => {
@@ -179,24 +192,9 @@ const validateAmount = amount => {
   return standardError
 }
 
-const formWrapperStyle = css`
-  display: flex;
-  flex-wrap: wrap;
-`
-
 const largeTextFieldStyle = css`
   width: 90%;
   margin: 10px;
-`
-
-const smallTextFieldStyle = css`
-  margin: 10px;
-  @media (min-width: 601px) {
-    width: 45%;
-  }
-  @media (max-width: 600px) {
-    width: 90%;
-  }
 `
 
 const formSpacerStyle = css`

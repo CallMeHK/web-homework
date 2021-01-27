@@ -3,9 +3,7 @@ import Card from '@material-ui/core/Card'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import { useQuery } from '@apollo/client'
 import { TxTable } from '../components/transactions/TxTable'
-import CardActions from '@material-ui/core/CardActions'
 import CardContent from '@material-ui/core/CardContent'
-import Button from '@material-ui/core/Button'
 import Typography from '@material-ui/core/Typography'
 import { TransactionForm } from '../components/entry-form/TransactionForm'
 import GET_MERCHANTS_AND_USERS from '../gql/get_merchants_and_users.gql'
@@ -33,6 +31,14 @@ export const EntryPage = () => {
     )
   }
 
+  const formCallback = newTransaction => setData(old => ({
+    ...old,
+    transactions: [
+      newTransaction,
+      ...old.transactions
+    ]
+  }))
+
   return (
     <div css={centerPageStyle}>
       <div css={cardContainerStyle}>
@@ -42,9 +48,9 @@ export const EntryPage = () => {
               Transaction Entry Form
             </Typography>
             <Typography variant="body2" component="p">
-              Please enter the transaction information below to the best of your ability.
+              Please enter the transaction information.
             </Typography>
-            <TransactionForm data={data} formCallback={setData} />
+            <TransactionForm data={data} formCallback={formCallback} />
           </CardContent>
         </Card>
         <div css={cardSpacerStyle} />

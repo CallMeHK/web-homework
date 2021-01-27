@@ -1,4 +1,5 @@
 import React from 'react'
+import { func } from 'prop-types'
 import { currency } from '../utils/currency'
 
 export const FormContext = React.createContext({})
@@ -10,7 +11,6 @@ export const FormContextProvider = ({ children, setData }) => {
 
   const openEditModal = transaction => {
     const { id, user, merchant, amount, credit, debit, description } = transaction
-    console.log(transaction)
 
     setInitialEditState({
       txId: id,
@@ -33,4 +33,8 @@ export const FormContextProvider = ({ children, setData }) => {
   }
 
   return <FormContext.Provider value={value}>{children}</FormContext.Provider>
+}
+
+FormContextProvider.propTypes = {
+  setData: func.isRequired
 }

@@ -14,16 +14,7 @@ defmodule Homework.Companies do
       left_join: u in User, on: c.id == u.company_id,
       left_join: t in Transaction, on: u.id == t.user_id,
       group_by: [c.id, c.name, c.credit_line],
-      select_merge: %{ available_credit: c.credit_line - sum(t.amount) }
-
-
-  def convert_credit_line_nil_to_zero(company) do
-    if company.available_credit == nil do
-      Map.merge(company, %{available_credit: company.credit_line})
-    else
-      company
-    end
-  end
+      select_merge: %{ available_credit: c.credit_line - sum(t.amount) |> coalesce(c.credit_line) }
 
   @doc """
   Returns the list of companies.
@@ -36,7 +27,6 @@ defmodule Homework.Companies do
   """
   def list_companies(_args) do
     Repo.all(@query_with_virtual_field)
-    |> Enum.map(&(convert_credit_line_nil_to_zero(&1)))
   end
 
   @doc """
@@ -55,7 +45,6 @@ defmodule Homework.Companies do
   """
   def get_company!(id) do
     Repo.get!(@query_with_virtual_field, id)
-    |> convert_credit_line_nil_to_zero
   end
 
   @doc """
@@ -74,7 +63,6 @@ defmodule Homework.Companies do
     %Company{}
     |> Company.changeset(attrs)
     |> Repo.insert()
-    |> convert_credit_line_nil_to_zero
   end
 
   @doc """
@@ -93,7 +81,6 @@ defmodule Homework.Companies do
     company
     |> Company.changeset(attrs)
     |> Repo.update()
-    |> convert_credit_line_nil_to_zero
   end
 
   @doc """
@@ -108,9 +95,9 @@ defmodule Homework.Companies do
       {:error, %Ecto.Changeset{}}
 
   """
-  # def delete_company(%Company{} = company) do
-  #   Repo.delete(company)
-  # end
+  def delete_company(%Company{} = company) do
+    Repo.delete(company)
+  end
 
   @doc """
   Returns an `%Ecto.Changeset{}` for tracking company changes.

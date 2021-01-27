@@ -1,4 +1,6 @@
 import React from 'react'
+import {user, merchant} from '../../utils/types'
+import { arrayOf, string, bool, number, shape, func } from 'prop-types'
 import Card from '@material-ui/core/Card'
 import { css } from '@emotion/core'
 import CardContent from '@material-ui/core/CardContent'
@@ -67,6 +69,11 @@ export const EditModal = ({ merchants, users }) => {
       </Modal>
     </div>
   )
+}
+
+EditModal.propTypes = {
+  merchants: arrayOf(merchant),
+  users: arrayOf(user)
 }
 
 const modalContainerStyle = css`

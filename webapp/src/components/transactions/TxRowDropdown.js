@@ -1,5 +1,4 @@
 import React from 'react'
-import Button from '@material-ui/core/Button'
 import ClickAwayListener from '@material-ui/core/ClickAwayListener'
 import Grow from '@material-ui/core/Grow'
 import Paper from '@material-ui/core/Paper'
@@ -7,11 +6,11 @@ import Popper from '@material-ui/core/Popper'
 import MenuItem from '@material-ui/core/MenuItem'
 import MenuList from '@material-ui/core/MenuList'
 import IconButton from '@material-ui/core/IconButton'
-import Menu from '@material-ui/core/Menu'
 import MoreVertIcon from '@material-ui/icons/MoreVert'
 import { useMutation } from '@apollo/client'
 import DELETE_TRANSACTION from '../../gql/delete_transaction.gql'
 import { useFormContext } from '../../context/form.context'
+import { transaction } from '../../utils/types'
 
 export const TxRowDropdown = ({ transaction }) => {
   const [open, setOpen] = React.useState(false)
@@ -93,4 +92,8 @@ export const TxRowDropdown = ({ transaction }) => {
       </Popper>
     </>
   )
+}
+
+TxRowDropdown.propTypes = {
+  transaction: transaction.isRequired
 }

@@ -37,3 +37,12 @@ export function TxSubTable({ credit, debit, description, merchant }) {
     </TableContainer>
   )
 }
+
+TxSubTable.propTypes = {
+  credit: bool.isRequired,
+  debit: bool.isRequired,
+  description: string.isRequired,
+  merchant: shape({
+    description: string.isRequired
+  }).isRequired
+}
